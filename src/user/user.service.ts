@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dtos/createUser.dto';
-import { User } from './interfaces/user.interface';
-import { hash } from 'bcrypt';
+import { Injectable } from "@nestjs/common";
+import { CreateUserDto } from "./dtos/createUser.dto";
+import { User } from "./interfaces/user.interface";
+import { hash } from "bcrypt";
 
 @Injectable()
 export class UserService {
