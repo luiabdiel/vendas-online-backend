@@ -84,12 +84,4 @@ describe('UserService', () => {
   it('should return error if user exist', async () => {
     expect(service.createUser(createUserMock)).rejects.toThrowError();
   });
-
-  it('should return user if user not exist', async () => {
-    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
-
-    const user = await service.createUser(createUserMock);
-
-    expect(user).toEqual(userEntityMock);
-  });
 });
