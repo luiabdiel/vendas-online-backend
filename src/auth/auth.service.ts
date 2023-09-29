@@ -12,7 +12,7 @@ import { LoginPayloadDto } from './dtos/loginPayload.dto';
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService,
+    private jwtService: JwtService,
   ) {}
 
   async login(loginDto: LoginDto): Promise<ReturnLoginDto> {
@@ -23,7 +23,7 @@ export class AuthService {
     const isMatch = await compare(loginDto.password, user?.password || '');
 
     if (!user || !isMatch) {
-      throw new NotFoundException('Email or password invalid.');
+      throw new NotFoundException('Email or passord invalid');
     }
 
     return {
