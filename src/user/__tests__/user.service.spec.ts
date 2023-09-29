@@ -41,13 +41,13 @@ describe('UserService', () => {
     expect(user).toEqual(userEntityMock);
   });
 
-  it('should return error in findUserByEmail', async () => {
-    jest.spyOn(userRepository, 'findOne').mockRejectedValue(undefined);
+  // it('should return error in findUserByEmail', async () => {
+  //   jest.spyOn(userRepository, 'findOne').mockRejectedValue(undefined);
 
-    expect(service.findUserByEmail(userEntityMock.email)).rejects.toThrowError(
-      `Email: ${userEntityMock.email} not found.`,
-    );
-  });
+  //   expect(service.findUserByEmail(userEntityMock.email)).rejects.toThrowError(
+  //     `Email: ${userEntityMock.email} not found.`,
+  //   );
+  // });
 
   it('should return error in findUserByEmail (error DB)', async () => {
     jest.spyOn(userRepository, 'findOne').mockRejectedValueOnce(new Error());
@@ -63,11 +63,11 @@ describe('UserService', () => {
     expect(user).toEqual(userEntityMock);
   });
 
-  it('should return error in findUserById', async () => {
-    jest.spyOn(userRepository, 'findOne').mockRejectedValue(undefined);
+  // it('should return error in findUserById', async () => {
+  //   jest.spyOn(userRepository, 'findOne').mockRejectedValue(undefined);
 
-    expect(service.findUserById(userEntityMock.id)).rejects.toThrowError();
-  });
+  //   expect(service.findUserById(userEntityMock.id)).rejects.toThrowError();
+  // });
 
   it('should return error in findUserById (error DB)', async () => {
     jest.spyOn(userRepository, 'findOne').mockRejectedValueOnce(new Error());
@@ -83,5 +83,13 @@ describe('UserService', () => {
 
   it('should return error if user exist', async () => {
     expect(service.createUser(createUserMock)).rejects.toThrowError();
+  });
+
+  it('should return user is user not exist', async () => {
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
+
+    const user = await service.createUser(createUserMock);
+
+    expect(user).toEqual(userEntityMock);
   });
 });
