@@ -21,6 +21,7 @@ export class CategoryService {
     if (!categories || categories.length === 0) {
       throw new NotFoundException('Categories empty');
     }
+
     return categories;
   }
 
