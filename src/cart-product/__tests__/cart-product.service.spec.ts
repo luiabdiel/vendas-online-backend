@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { CartProductEntity } from '../entities/cart-product.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { productMock } from '../../product/__mocks__/product.mock';
+import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
+import { cartMock } from '../../cart/__mocks__/cart.mock';
 
 describe('CartProductService', () => {
   let service: CartProductService;
@@ -18,15 +20,15 @@ describe('CartProductService', () => {
         {
           provide: ProductService,
           useValue: {
-            findOne: '',
-            save: '',
-            delete: '',
+            findProductById: jest.fn().mockResolvedValue(productMock),
           },
         },
         {
           provide: getRepositoryToken(CartProductEntity),
           useValue: {
-            findProductById: jest.fn().mockResolvedValue(productMock),
+            findOne: '',
+            save: '',
+            delete: jest.fn().mockResolvedValue(returnDeleteMock),
           },
         },
       ],
@@ -43,5 +45,22 @@ describe('CartProductService', () => {
     expect(service).toBeDefined();
     expect(productService).toBeDefined();
     expect(cartProductRepository).toBeDefined();
+  });
+
+  it('should return delete result after delete product', async () => {
+    const deleteResult = await service.deleteProductCart(
+      productMock.id,
+      cartMock.id,
+    );
+
+    expect(deleteResult).toEqual(returnDeleteMock);
+  });
+
+  it('should return error in exception delete', async () => {
+    jest.spyOn(cartProductRepository, 'delete').mockRejectedValue(new Error());
+
+    expect(
+      service.deleteProductCart(productMock.id, cartMock.id),
+    ).rejects.toThrowError();
   });
 });
