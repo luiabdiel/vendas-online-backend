@@ -9,6 +9,7 @@ import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
 import { cartMock } from '../../cart/__mocks__/cart.mock';
 import { insertCartMock } from '../../cart/__mocks__/insert-cart.mock';
 import { cartProductMock } from '../__mock__/cart-product.mock';
+import { NotFoundException } from '@nestjs/common';
 
 describe('CartProductService', () => {
   let service: CartProductService;
@@ -81,5 +82,30 @@ describe('CartProductService', () => {
     expect(
       service.createProductInCart(insertCartMock, cartMock.id),
     ).rejects.toThrow();
+  });
+
+  it('should return CartProduct if exist', async () => {
+    const productCart = await service.verifyProductInCart(
+      productMock.id,
+      cartMock.id,
+    );
+
+    expect(productCart).toEqual(cartProductMock);
+  });
+
+  it('should return error if not found', async () => {
+    jest.spyOn(cartProductRepository, 'findOne').mockResolvedValue(undefined);
+
+    expect(
+      service.verifyProductInCart(productMock.id, cartMock.id),
+    ).rejects.toThrow(NotFoundException);
+  });
+
+  it('should return error in exeception verifyProductInCart', async () => {
+    jest.spyOn(cartProductRepository, 'findOne').mockRejectedValue(new Error());
+
+    expect(
+      service.verifyProductInCart(productMock.id, cartMock.id),
+    ).rejects.toThrow(Error);
   });
 });
