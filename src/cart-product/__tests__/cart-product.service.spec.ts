@@ -149,8 +149,6 @@ describe('CartProductService', () => {
     });
   });
 
-  // SEPARA AE BROTHER
-
   it('should return error in exeception updateProductInCart', async () => {
     jest
       .spyOn(productService, 'findProductById')
