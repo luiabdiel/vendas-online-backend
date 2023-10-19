@@ -1,11 +1,10 @@
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from '../../user/user.service';
+import { userEntityMock } from '../../user/__mocks__/user.mock';
 import { AuthService } from '../auth.service';
-import { JwtService } from '@nestjs/jwt';
 import { jwtMock } from '../__mocks__/jwt.mock';
 import { loginUserMock } from '../__mocks__/login-user.mock';
-import { userEntityMock } from '../../user/__mocks__/user.mock';
-// import { ReturnUserDto } from '../../user/dtos/returnUser.dto';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -38,15 +37,6 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
     expect(userService).toBeDefined();
   });
-
-  // it('should return user if password and email valid', async () => {
-  //   const user = await service.login(loginUserMock);
-
-  //   expect(user).toEqual({
-  //     accessToken: jwtMock,
-  //     user: new ReturnUserDto(userEntityMock),
-  //   });
-  // });
 
   it('should return user if password invalid and email valid', async () => {
     expect(
