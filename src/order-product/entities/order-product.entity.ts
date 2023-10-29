@@ -7,6 +7,7 @@ import {
   JoinColumn,
   ManyToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'order_product' })
@@ -29,7 +30,7 @@ export class OrderProductEntity {
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @CreateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   @ManyToMany(() => OrderEntity, (order) => order.ordersProduct)

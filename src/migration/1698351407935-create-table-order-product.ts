@@ -19,12 +19,12 @@ export class CreateTableOrderProduct1698351407935
         );
 
         CREATE SEQUENCE public.order_product_id_seq
-            AS integer
-            START WITH 1
-            INCREMENT BY 1
-            NO MINVALUE
-            NO MAXVALUE
-            CACHE 1;
+          AS integer
+          START WITH 1
+          INCREMENT BY 1
+          NO MINVALUE
+          NO MAXVALUE
+          CACHE 1;
 
         ALTER SEQUENCE public.order_product_id_seq OWNED BY public.order_product.id;
 

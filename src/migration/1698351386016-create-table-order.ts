@@ -18,12 +18,12 @@ export class CreateTableOrder1698351386016 implements MigrationInterface {
         );
 
         CREATE SEQUENCE public.order_id_seq
-            AS integer
-            START WITH 1
-            INCREMENT BY 1
-            NO MINVALUE
-            NO MAXVALUE
-            CACHE 1;
+          AS integer
+          START WITH 1
+          INCREMENT BY 1
+          NO MINVALUE
+          NO MAXVALUE
+          CACHE 1;
 
         ALTER SEQUENCE public.order_id_seq OWNED BY public.order.id;
 

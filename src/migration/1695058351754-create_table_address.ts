@@ -15,7 +15,7 @@ export class CreateTableAddress1695058351754 implements MigrationInterface {
         primary key (id),
         foreign key (user_id) references public.user(id),
         foreign key (city_id) references public.city(id)
-    );
+      );
 
       CREATE SEQUENCE public.address_id_seq
         AS integer
