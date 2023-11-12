@@ -1,4 +1,3 @@
-import { OrderEntity } from '../../order/entities/order.entity';
 import { CityEntity } from '../../city/entities/city.entity';
 import { UserEntity } from '../../user/entities/user.entity';
 import {
@@ -11,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { OrderEntity } from '../../order/entities/order.entity';
 
 @Entity({ name: 'address' })
 export class AddressEntity {
@@ -20,7 +20,7 @@ export class AddressEntity {
   @Column({ name: 'user_id', nullable: false })
   userId: number;
 
-  @Column({ name: 'complement' })
+  @Column({ name: 'complement', nullable: true })
   complement: string;
 
   @Column({ name: 'number', nullable: false })
