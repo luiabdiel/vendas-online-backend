@@ -10,6 +10,7 @@ import { OrderProductService } from '../order-product/order-product.service';
 import { ProductService } from '../product/product.service';
 import { CartEntity } from '../cart/entities/cart.entity';
 import { ProductEntity } from '../product/entities/product.entity';
+import { OrderProductEntity } from '../order-product/entities/order-product.entity';
 
 @Injectable()
 export class OrderService {
@@ -39,17 +40,17 @@ export class OrderService {
     cart: CartEntity,
     orderId: number,
     products: ProductEntity[],
-  ) {
+  ): Promise<OrderProductEntity[]> {
     return Promise.all(
-      cart.cartProduct?.map((cartProduct) => {
+      cart.cartProduct?.map((cartProduct) =>
         this.orderProductService.createOrderProduct(
           cartProduct.productId,
           orderId,
           products.find((product) => product.id === cartProduct.productId)
             ?.price || 0,
           cartProduct.amount,
-        );
-      }),
+        ),
+      ),
     );
   }
 
@@ -71,6 +72,7 @@ export class OrderService {
     const order = await this.saveOrder(createOrderDto, userId, payment);
 
     await this.createOrderProductUsingCart(cart, order.id, products);
+
     await this.cartService.clearCart(userId);
 
     return order;
@@ -86,7 +88,11 @@ export class OrderService {
         id: orderId,
       },
       relations: {
-        address: true,
+        address: {
+          city: {
+            state: true,
+          },
+        },
         ordersProduct: {
           product: true,
         },

@@ -8,7 +8,7 @@ import { AxiosError } from 'axios';
 import { CityService } from '../city/city.service';
 import { ReturnCepDtoExternal } from './dtos/return-cep-external.dto';
 import { ReturnCepDto } from './dtos/return-cep.dto';
-import { CityEntity } from 'src/city/entities/city.entity';
+import { CityEntity } from '../city/entities/city.entity';
 
 @Injectable()
 export class CorreiosService {

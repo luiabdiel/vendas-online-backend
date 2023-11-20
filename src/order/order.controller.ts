@@ -23,10 +23,10 @@ export class OrderController {
   @Post()
   @UsePipes(ValidationPipe)
   async createOrder(
-    @Body() createOrderDto: CreateOrderDto,
+    @Body() createOrderDTO: CreateOrderDto,
     @UserId() userId: number,
   ): Promise<OrderEntity> {
-    return this.orderService.createOrder(createOrderDto, userId);
+    return this.orderService.createOrder(createOrderDTO, userId);
   }
 
   @Get()
@@ -46,9 +46,9 @@ export class OrderController {
   @Get('/:orderId')
   async findOrderById(
     @Param('orderId') orderId: number,
-  ): Promise<ReturnOrderDto[]> {
-    return (await this.orderService.findOrdersByUserId(undefined, orderId)).map(
-      (order) => new ReturnOrderDto(order),
+  ): Promise<ReturnOrderDto> {
+    return new ReturnOrderDto(
+      (await this.orderService.findOrdersByUserId(undefined, orderId))[0],
     );
   }
 }
